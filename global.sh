@@ -1,5 +1,8 @@
 #!/bin/bash
+echo "Name of the version : Unicorn (PRE-RELEASE)"
+echo "
 
+";
 #---------- CHECK THE RELEASE ----------
 #The name looks like a video game name XD
 if [[ -e /etc/debian_version ]]; then

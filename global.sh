@@ -106,4 +106,9 @@ echo " ";echo " ";
 echo "********************************************************
 You can do anything else if you start the script again;
 ********************************************************";
+read -p "Do you want to run the script again ? " end
+if [[ $end = "y" ]]; then
+  ./global.sh;
+  exit 0;
+fi
 exit 0;

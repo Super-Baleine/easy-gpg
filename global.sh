@@ -1,14 +1,12 @@
-#!/bin/bash
-echo "Name of the version : Unicorn (PRE-RELEASE)"
-echo "
-
-";
+#!/usr/bin/env bash
 #---------- CHECK THE RELEASE ----------
-#The name looks like a video game name XD
 if [[ -e /etc/debian_version ]]; then
-  operating_system=debian_like
+  operating_system="debian_like"
 elif [[ -e /etc/centos-release ]]; then
-  operating_system=centos
+  operating_system="centos"
+else
+	echo "Sorry, you distribution isn't supported yet.
+	Exiting...";exit 0;
 fi
 #---------- GENERAL ----------
 echo "Welcome !";
@@ -26,21 +24,21 @@ Anything else will exit the script ! :)";
 read -p "> " choice
 
 if [[ $choice = "exit" ]]; then
-  echo "Okay, bye bye ! :)"
+  echo "Exiting...";
   exit 0;
 fi
 #---------- FUNCTIONS ----------
 delete_keys(){
-  gpg --delete-secret-and-public-keys $1 || echo "report the problem to illoxx.jyloxx@openmailbox.org";
+  gpg --delete-secret-and-public-keys $1
 }
 import_key(){
-  gpg --import $1 || echo "report the problem to illoxx.jyloxx@openmailbox.org";
+  gpg --import $1
 }
 delete_public_key(){
-  gpg --delete-keys $1 || echo "report the problem to illoxx.jyloxx@openmailbox.org";
+  gpg --delete-keys $1
 }
 delete_private_key(){
-  gpg --delete-secret-keys $1 || echo "report the problem to illoxx.jyloxx@openmailbox.org";
+  gpg --delete-secret-keys $1
 }
 #---------- CHOICE ----------
 case $choice in
@@ -64,7 +62,7 @@ case $choice in
     gpg --gen-key;
     ;;
   "3")
-    read -p "Give the name or the email of the pair : " pair
+    read -p "Give the name or the email of the pair : " func
     delete_keys $func
     ;;
   "4")
@@ -75,7 +73,7 @@ case $choice in
     import_key $func
     ;;
   "5")
-    echo " ";echo Your public key is...;sleep 1s;
+    echo " ";echo Your public key is...
     gpg --export -a
     ;;
   "6")
@@ -94,7 +92,7 @@ case $choice in
     elif [[ operating_system = "centos" ]]; then
       yum remove gpgv
     fi
-    echo "Okay ! GnuPG have been unistalled."
+    echo "Okay ! GnuPG have been unistalled.";
     ;;
   *)
     ./global.sh
@@ -102,11 +100,11 @@ case $choice in
     ;;
 esac
 #---------- ~ ENDING ~ ----------
-echo " ";echo " ";
-echo "********************************************************
-You can do anything else if you start the script again;
-********************************************************";
-read -p "Do you want to run the script again ? " end
+read -p "*
+*
+*
+*
+Do you want to run the script again ? " end
 if [[ $end = "y" ]]; then
   ./global.sh;
   exit 0;
